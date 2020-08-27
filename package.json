@@ -1,0 +1,34 @@
+{
+  "name": "js-30",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --experimental-modules --es-module-specifier-resolution=node index.js --name=a ",
+    "dev": "nodemon --experimental-modules --es-module-specifier-resolution=node  index.js --action=create"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nNg9999/node-js-30.git"
+  },
+  "author": "n_n_g@ukr.net",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nNg9999/node-js-30/issues"
+  },
+  "homepage": "https://github.com/nNg9999/node-js-30#readme",
+  "devDependencies": {
+    "eslint": "^7.7.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.1.1"
+  },
+  "dependencies": {
+    "uuid": "^8.3.0",
+    "yargs": "^15.4.1"
+  }
+}
