@@ -1,0 +1,44 @@
+{
+  "name": "js-30",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --experimental-modules --es-module-specifier-resolution=node src/index.js",
+    "dev": "nodemon --experimental-modules --es-module-specifier-resolution=node  src/start.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nNg9999/node-js-30.git"
+  },
+  "author": "n_n_g@ukr.net",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nNg9999/node-js-30/issues"
+  },
+  "homepage": "https://github.com/nNg9999/node-js-30#readme",
+  "devDependencies": {
+    "eslint": "^7.7.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react-hooks": "^4.1.0",
+    "joi": "^17.2.1",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.1.1",
+    "prettier-airbnb-config": "^1.0.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "uuid": "^8.3.0",
+    "yargs": "^15.4.1"
+  }
+}
