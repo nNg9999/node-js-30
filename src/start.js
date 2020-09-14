@@ -1,3 +1,5 @@
-const ContactsServer = require('./server');
+// const ContactsServer = require('./server');
 
-new ContactsServer().start();
+// new ContactsServer().start();
+
+require('./server');
