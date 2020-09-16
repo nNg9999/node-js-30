@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const contacts = require("../contacts");
-
+// const contacts = require("../contacts");
 
 const joi = require("joi");
 const responseNormalizer = require("../normalizers/response-normalizer");
