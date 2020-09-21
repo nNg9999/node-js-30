@@ -6,10 +6,13 @@ const morgan = require("morgan");
 const cors = require('cors');
 const path = require("path");
 
-const connection = require('.././database/Connection')
+const connection = require('./database/Connection');
 
 // const contactsRouter = require('./routers/contactsRouter');
-const contactsMongoRouter = require('./routers/contactsMongoRouter');
+// const contactsMongoRouter = require('./routers/contactsMongoRouter');
+const contactsMoongooseRouter = require('./routers/contactsMoongooseRouter');
+const authRouter = require('./routers/authRouter');
+const userRouter = require('./routers/userRouter');
 
 const app = express();
 
@@ -18,13 +21,15 @@ async function main() {
 
   await connection.connect();
 
-
   app.use(morgan("tiny"));
   app.use(express.urlencoded());
   app.use(express.json());
 
   app.use("/app", express.static(path.join(__dirname, "public")));
-  app.use("/api/contacts", contactsMongoRouter);
+  app.use("/api/contacts", contactsMoongooseRouter);
+  app.use("/auth", authRouter);
+  app.use("/user", userRouter);
+
 
   app.listen(config.port, (err) => {
     if (err) {
