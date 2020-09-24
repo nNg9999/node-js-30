@@ -6,9 +6,11 @@ const responseNormalizer = require("../normalizers/response-normalizer");
 const errorWrapper = require("../helpers/errorWarapper");
 
 const mongodb = require("mongodb");
-const connection = require("../../database/Connection");
+const connection = require("../database/Connection");
 
-router.get("/", errorWrapper(async (req, res) => {
+const authCheck = require("../middlewares/auth-check");
+
+router.get("/", authCheck, errorWrapper(async (req, res) => {
 
   const { page, limit = 10 } = req.query;
   const collection = await connection.database.collection("contacts");
@@ -68,6 +70,7 @@ router.post("/", errorWrapper(async (req, res) => {
   return res.status(201).send(responseNormalizer(contactInsert.ops));
 
 }));
+
 
 router.delete("/:contactId", errorWrapper(async (req, res) => {
 
