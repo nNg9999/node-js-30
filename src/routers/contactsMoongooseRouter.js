@@ -8,24 +8,17 @@ const responseNormalizer = require("../normalizers/response-normalizer");
 const errorWrapper = require("../helpers/errorWarapper");
 const validate = require("../helpers/validate");
 
-const UserModel = require("../database/models/UserModel");
+const ContactModel = require("../database/models/ContactModel");
 
 
 router.get("/", errorWrapper(async (req, res) => {
 
-  const { page = 0, limit = 20, sub = "free" } = req.query;
+  const { page = 0, limit = 20, } = req.query;
 
-  let contactsList;
-  if (sub) {
-    contactsList = await UserModel.find({ subscription: `${sub}` })
-      .sort({ email: -1 })
-  }
-  else {
-    contactsList = await UserModel.find({})
-      .sort({ email: -1 })
-      .skip(parseInt(page * limit))
-      .limit(parseInt(limit));
-  }
+  contactsList = await ContactModel.find({})
+    .sort({ email: -1 })
+    .skip(parseInt(page * limit))
+    .limit(parseInt(limit));
 
   res.status(200).send(responseNormalizer(contactsList));
 
@@ -35,7 +28,7 @@ router.get("/:contactId", errorWrapper(async (req, res) => {
 
   const { contactId } = req.params;
 
-  const contactById = await UserModel.findById(contactId);
+  const contactById = await ContactModel.findById(contactId);
 
   if (!contactById) {
     const err = { message: "Not found" };
@@ -48,8 +41,8 @@ router.get("/:contactId", errorWrapper(async (req, res) => {
 
 router.post("/", errorWrapper(async (req, res) => {
 
-  const { email, password } = req.body;
-  const createdUser = await UserModel.create({ email, password });
+  const { phone, name } = req.body;
+  const createdUser = await ContactModel.create({ phone, name });
 
   return res.status(201).send(responseNormalizer(createdUser));
 
@@ -59,7 +52,7 @@ router.delete("/:contactId", errorWrapper(async (req, res) => {
 
   const { contactId } = req.params;
 
-  const contactToRemove = await UserModel.findById(contactId);
+  const contactToRemove = await ContactModel.findById(contactId);
 
   if (!contactToRemove) {
     const err = { message: "Not found" };
@@ -74,7 +67,7 @@ router.delete("/:contactId", errorWrapper(async (req, res) => {
 
 router.delete("/:contactId/soft", errorWrapper(async (req, res) => {
 
-  await UserModel.findByIdAndUpdate(req.params.contactId, { deletedAt: new Date() });
+  await ContactModel.findByIdAndUpdate(req.params.contactId, { deletedAt: new Date() });
 
   const success = { message: "contact deleted soft" };
   return res.status(200).send(responseNormalizer(success));
@@ -89,14 +82,15 @@ router.patch("/:contactId", errorWrapper(async (req, res) => {
 
   validate(
     joi.object({
-      subscription: joi.string(),
+      phone: joi.string(),
+      name: joi.string(),
     }),
     req.body
   );
 
   const { contactId } = req.params;
 
-  const contactToUpdate = await UserModel.findById(contactId);
+  const contactToUpdate = await ContactModel.findById(contactId);
 
   if (!contactToUpdate) {
     throw new ApiError(404, "Not found");
