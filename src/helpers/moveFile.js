@@ -1,10 +1,14 @@
 const fs = require('fs-extra');
 
-async function moveFile(oldPath, newPath) {
-  await fs.move(oldPath, newPath, function (err) {
-    if (err) return console.error(err)
+function moveFile(oldPath, newPath) {
+  try {
+    fs.move(oldPath, newPath)
     // console.log("success!")
-  })
+  }
+
+  catch (e) {
+    console.error(err)
+  }
 }
 
 module.exports = moveFile;
