@@ -11,3 +11,6 @@ exports.errorWarapper = require("./errorWarapper");
 exports.routerWrapper = require("./routerWrapper");
 exports.errorHandler = require("./errorHandler");
 exports.ApiError = require('./ApiError');
+exports.minifyImage = require('./minifyImage');
+exports.multer = require('./multer');
+exports.moveFile = require('./moveFile');

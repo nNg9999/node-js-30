@@ -24,6 +24,7 @@ const UserSchema = new mongoose.Schema({
     default: "free"
   },
   name: { type: String },
+  avatarURL: { type: String },
   // login: { type: String, unique: true, required: true },
   parrentEmail: {
     type: String,
@@ -70,5 +71,5 @@ UserSchema.pre("save", function () {
 });
 
 
-module.exports = mongoose.model("contact", UserSchema);
+module.exports = mongoose.model("User", UserSchema);
 

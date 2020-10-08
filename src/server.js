@@ -25,7 +25,7 @@ async function main() {
   app.use(express.urlencoded());
   app.use(express.json());
 
-  app.use("/app", express.static(path.join(__dirname, "public")));
+  app.use("/images", express.static(path.join(__dirname, "public", "images")));
   app.use("/api/contacts", contactsMoongooseRouter);
   app.use("/auth", authRouter);
   app.use("/user", userRouter);

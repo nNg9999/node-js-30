@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 const joi = require("joi");
+const avatarGenerator = require("../helpers/avatarGenerator");
+const multer = require("../helpers/multer");
+
 const passwordHash = require("password-hash");
 const authCheck = require("../middlewares/auth-check");
 const { validate, ApiError } = require("../helpers");
@@ -22,6 +25,7 @@ router.post("/register", errorWrapper(async (req, res) => {
   );
 
   const { email, password } = req.body;
+  const size = 200;
 
   const [user] = await UserModel.find({ email });
 
@@ -29,9 +33,11 @@ router.post("/register", errorWrapper(async (req, res) => {
     throw new ApiError(409, "Email in use");
   }
 
+  const avatarURL = await avatarGenerator(email, size);
   const createdUser = await UserModel.create({
     email,
     password,
+    avatarURL
   });
 
   res.status(201).send({ createdUser });
@@ -52,7 +58,6 @@ router.post("/login", errorWrapper(async (req, res) => {
   const { email, password } = req.body;
 
   const [user] = await UserModel.find({ email });
-
 
   if (!user) {
     throw new ApiError(401, "Email or password is wrong");
