@@ -32,6 +32,9 @@ const UserSchema = new mongoose.Schema({
       return this.age < 12;
     }
   },
+  status: { type: String, enum: ['Verified', 'Created'], default: "Created" },
+  verificationToken: { type: String, required: false },
+  valid: { type: Boolean, default: false },
   active: { type: Boolean, default: false },
   tokens: [
     {
@@ -39,6 +42,10 @@ const UserSchema = new mongoose.Schema({
       expires: { type: Date, required: true }
     }
   ],
+  otp: {
+    token: { type: String, required: false },
+    expires: { type: Date, required: false }
+  },
   createdAt: { type: Date, default: () => Date.now() },
   deletedAt: Date
 });

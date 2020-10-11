@@ -1,12 +1,15 @@
 const argv = require('yargs').argv;
 const config = require("../config");
 
+
 const express = require("express");
 const morgan = require("morgan");
 const cors = require('cors');
 const path = require("path");
 
 const connection = require('./database/Connection');
+const tokenCleaner = require("./cron/token-cleaner");
+const { mailerWebApi } = require('./services');
 
 // const contactsRouter = require('./routers/contactsRouter');
 // const contactsMongoRouter = require('./routers/contactsMongoRouter');
@@ -16,16 +19,21 @@ const userRouter = require('./routers/userRouter');
 
 const app = express();
 
+const mainEmail = require('./email')
+
 async function main() {
 
-
+  await mailerWebApi.init();
   await connection.connect();
+
+  tokenCleaner();
 
   app.use(morgan("tiny"));
   app.use(express.urlencoded());
   app.use(express.json());
 
   app.use("/images", express.static(path.join(__dirname, "public", "images")));
+  app.use("/", express.static(path.join(__dirname, "public")));
   app.use("/api/contacts", contactsMoongooseRouter);
   app.use("/auth", authRouter);
   app.use("/user", userRouter);
