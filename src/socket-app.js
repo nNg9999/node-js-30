@@ -1,5 +1,5 @@
 const SocketIo = require("socket.io");
-const socketHandlers = require("./socker-handlers");
+const socketHandlers = require("./socket-handlers");
 
 module.exports = (server) => {
   const socket = SocketIo(server);

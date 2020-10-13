@@ -42,17 +42,14 @@ router.post("/register", errorWrapper(async (req, res) => {
     password,
     avatarURL,
     valid: false,
-    verificationToken: createJwtToken()
-    // otp: {
-    //   token: createJwtToken(),
-    //   expires: Date.now() * 60 * 60 * 1000
-    //   expires: new Date().getTime()
-    // }
+    verificationToken: {
+      token: createJwtToken(),
+      expires: Date.now() + 24 * 60 * 60 * 1000
+    }
   });
 
-
-  // const url = `${config.server.endpoint}/auth/verify/${createdUser.otp.token}`;
-  const url = `${config.server.endpoint}/auth/verify/${createdUser.verificationToken}`;
+  const { token } = createdUser.verificationToken;
+  const url = `${config.server.endpoint}/auth/verify/${token}`;
 
   await mailerWebApi.sendBody({
     to: email,
@@ -71,36 +68,23 @@ router.post("/register", errorWrapper(async (req, res) => {
 router.get("/verify/:verificationToken", errorWrapper(async (req, res) => {
 
   const { verificationToken } = req.params;
-  // console.log(otp);
-
-  // const user = await UserModel.findOne({
-  //   "otp.token": otp
-  // });
 
   const user = await UserModel.findOne({
-    verificationToken
+    "verificationToken.token": verificationToken
   });
 
   if (!user) {
     logger.error("User not found");
+    res.redirect("/error.html");
     throw new ApiError(404, "User not found");
-    // return res.redirect("/app/error?type=user-not-found");
-    // return res.redirect("/error.html");
+
   }
 
-  user.valid = true
+  user.valid = true;
   user.verificationToken = null;
   await user.save();
 
-  // if (user.valid) {
-  //   // user.otp = null;
-  //   user.verificationToken = null;
-  //   await user.save();
-  //   return res.redirect("/verify.html");
-  // }
-
   res.redirect("/verify.html");
-  // res.redirect("/app/login");
   res.status(200).send();
 
 }));

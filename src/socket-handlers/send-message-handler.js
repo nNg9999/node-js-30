@@ -1,5 +1,5 @@
 const BaseHandler = require("./base-handler");
-const { ChatModel, MessageModel } = require("../database/modles");
+const { ChatModel, MessageModel } = require("../database/models");
 
 class SendMessageHandler extends BaseHandler {
   static get name() {

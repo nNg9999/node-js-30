@@ -33,7 +33,7 @@ const UserSchema = new mongoose.Schema({
     }
   },
   status: { type: String, enum: ['Verified', 'Created'], default: "Created" },
-  verificationToken: { type: String, required: false },
+  // verificationToken: { type: String, required: false },
   valid: { type: Boolean, default: false },
   active: { type: Boolean, default: false },
   tokens: [
@@ -42,7 +42,7 @@ const UserSchema = new mongoose.Schema({
       expires: { type: Date, required: true }
     }
   ],
-  otp: {
+  verificationToken: {
     token: { type: String, required: false },
     expires: { type: Date, required: false }
   },

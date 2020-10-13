@@ -8,7 +8,7 @@ class MailerWebApi {
 
     this.transporter = nodemailer.createTransport(
       {
-        service: 'gmail', // true for 465, false for other ports
+        service: 'gmail',
         auth: {
           user: config.nodeMailerUser, // generated ethereal user
           pass: config.nodeMailerPass, // generated ethereal password
@@ -34,7 +34,6 @@ class MailerWebApi {
     return this.transporter.sendMail(
       {
         from: `"Support 👻" ${config.nodeMailerUser}`, // sender address
-        // from: config.nodeMailerUser, // sender address
         to: Array.isArray(to) ? to.join(", ") : to, // list of receivers
         subject: subject, // Subject line
         text,
@@ -54,18 +53,4 @@ class MailerWebApi {
 
 
 module.exports = new MailerWebApi();
-
-// mailerWebApi = new MailerWebApi();
-
-// async function main() {
-
-//   await mailerWebApi.init();
-
-//   await mailerWebApi.sendText({
-//     to: 'mykola.zhelinskyi@gmail.com',
-//     subject: 'INFO',
-//     text: 'Server started',
-//   })
-// }
-// main();
 

@@ -6,17 +6,7 @@ class Mailer {
   constructor() {
     this.logger = getLogger("mailer");
 
-    this.transporter = nodemailer.createTransport(
-      {
-        host: "smtp.sendgrid.net",
-        port: 587,
-        secure: false, // true for 465, false for other ports
-        auth: {
-          user: 'apikey', // generated ethereal user
-          pass: config.SENDGRID_SMTP_KEY, // generated ethereal password
-        },
-      }
-    );
+    this.transporter = nodemailer.createTransport(config.mailer);
   }
 
   async init() {

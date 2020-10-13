@@ -14,15 +14,41 @@ module.exports = {
   nodeMailerPass: process.env.NODEMAILER_PASS,
 
 
-  // smtp: {
-  //   host: process.env.SMTP_HOST,
-  //   port: process.env.SMTP_PORT,
-  //   secure: process.env.SMTP_SECURE === "true",
-  //   auth: {
-  //     user: process.env.SMTP_USER,
-  //     pass: process.env.SMTP_PASSWORD
-  //   }
-  // },
+  smtp: {
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: process.env.SMTP_SECURE === "true",
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASSWORD
+    }
+  },
+
+  emailWebApi: {
+    to: ['reloader.zhelinskyi@gmail.com', 'mykola.zhelinskyi@gmail.com'],
+    from: 'mykola.zhelinskyi@gmail.com',
+    subject: 'Sending with SendGrid is Fun',
+    text: 'and easy to do anywhere, even with Node.js',
+    html: '<strong>and easy to do anywhere, even with Node.js</strong>'
+  },
+
+  mailer: {
+    host: "smtp.sendgrid.net",
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: 'apikey', // generated ethereal user
+      pass: process.env.SENDGRID_SMTP_KEY, // generated ethereal password
+    },
+  },
+
+  mailerWebApi: {
+    service: 'gmail',
+    auth: {
+      user: process.env.nodeMailerUser, // generated ethereal user
+      pass: process.env.nodeMailerPass, // generated ethereal password
+    },
+  },
 
   logLevel: process.env.LOG_LEVEL,
 

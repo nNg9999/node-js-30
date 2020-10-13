@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 const config = require("../../config");
 const BaseHandler = require("./base-handler");
-const { UserModel } = require("../database/modles");
-const socketStorage = require("../socket-storate");
+const { UserModel } = require("../database/models");
+const socketStorage = require("../socket-storage");
 
 class LoginHandler extends BaseHandler {
   static get name() {

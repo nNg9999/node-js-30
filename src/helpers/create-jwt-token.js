@@ -5,7 +5,3 @@ module.exports = (options = {}) => {
   return jwt.sign("", config.jwtPrivateKey, options);
 };
 
-// const createJwt = (options = {}) => {
-//   return jwt.sign("", config.jwtPrivateKey, options)
-// }
-// console.log("jsonwebtoken", createJwt());
