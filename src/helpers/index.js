@@ -14,3 +14,6 @@ exports.ApiError = require('./ApiError');
 exports.minifyImage = require('./minifyImage');
 exports.multer = require('./multer');
 exports.moveFile = require('./moveFile');
+exports.getLogger = require("./get-logger");
+exports.createJwtToken = require("./create-jwt-token");
+exports.validateJwtToken = require("./validate-jwt-token");
